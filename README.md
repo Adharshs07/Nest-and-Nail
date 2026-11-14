@@ -1,7 +1,7 @@
 # 🏠 Nest & Nail — On-Demand Home Services Marketplace
 
 > **Architected for Reliability. Engineered with Clean Architecture.**  
-> *A high-performance, role-based platform connecting homeowners with vetted professionals for physical repairs, home maintenance, and live virtual consultations.*
+> *A full-stack, role-based platform connecting clients with verified service professionals for residential repairs, maintenance, and virtual video consultations.*
 
 [![Node.js Version](https://img.shields.io/badge/Node.js-v20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16.2.6-black?logo=next.js&logoColor=white)](https://nextjs.org/)
@@ -24,56 +24,51 @@
   - [The Solution](#the-solution)
   - [Core User Personas](#core-user-personas)
   - [High-Level Value Proposition](#high-level-value-proposition)
-- [2. Technology Stack](#2-technology-stack)
-- [3. System Architecture](#3-system-architecture)
+- [2. Features by User Role](#2-features-by-user-role)
+  - [Client Capabilities](#client-capabilities)
+  - [Worker Capabilities](#worker-capabilities)
+  - [Admin Governance & Moderation](#admin-governance--moderation)
+- [3. Technology Stack](#3-technology-stack)
+- [4. System Architecture](#4-system-architecture)
   - [High-Level Architecture](#high-level-architecture)
   - [Backend Clean Architecture & Domain-Driven Design](#backend-clean-architecture--domain-driven-design)
   - [Frontend Architecture & Next.js App Router](#frontend-architecture--nextjs-app-router)
   - [End-to-End Request Lifecycle](#end-to-end-request-lifecycle)
-- [4. Visual Workflow Diagrams](#4-visual-workflow-diagrams)
-  - [1. User Registration & OTP Flow](#1-user-registration--otp-flow)
+- [5. Visual Workflow Diagrams](#5-visual-workflow-diagrams)
+  - [1. User Registration & OTP Verification](#1-user-registration--otp-verification)
   - [2. Google OAuth Authentication](#2-google-oauth-authentication)
-  - [3. Password Recovery & Reset Flow](#3-password-recovery--reset-flow)
-  - [4. Worker Onboarding & KYC Document Verification](#4-worker-onboarding--kyc-document-verification)
-  - [5. Geospatial Worker Discovery & Availability Query](#5-geospatial-worker-discovery--availability-query)
-  - [6. Service Booking & Slot Reservation](#6-service-booking--slot-reservation)
-  - [7. Payment Processing (Razorpay & Internal Wallet)](#7-payment-processing-razorpay--internal-wallet)
-  - [8. Physical Service Execution Lifecycle](#8-physical-service-execution-lifecycle)
-  - [9. Tiered Cancellation & Automatic Refund Matrix](#9-tiered-cancellation--automatic-refund-matrix)
-  - [10. WebRTC Video Consultation & Socket.io Signaling](#10-webrtc-video-consultation--socketio-signaling)
-  - [11. Real-Time Chat & Bidirectional Messaging](#11-real-time-chat--bidirectional-messaging)
-  - [12. Real-Time Push Notification Engine](#12-real-time-push-notification-engine)
-  - [13. Automated 15-Minute Moderation & Penalization Engine](#13-automated-15-minute-moderation--penalization-engine)
-- [5. Feature Matrix by User Role](#5-feature-matrix-by-user-role)
-  - [Client Capabilities](#client-capabilities)
-  - [Worker Capabilities](#worker-capabilities)
-  - [Admin Governance & Moderation](#admin-governance--moderation)
-- [6. Database Architecture & Data Modeling](#6-database-architecture--data-modeling)
+  - [3. Worker Onboarding & KYC Document Verification](#3-worker-onboarding--kyc-document-verification)
+  - [4. Physical Service Execution Lifecycle](#4-physical-service-execution-lifecycle)
+  - [5. Tiered Cancellation & Automatic Refund Matrix](#5-tiered-cancellation--automatic-refund-matrix)
+  - [6. WebRTC Video Consultation & Socket.io Signaling](#6-webrtc-video-consultation--socketio-signaling)
+  - [7. Real-Time Chat & Instant Messaging](#7-real-time-chat--instant-messaging)
+  - [8. Real-Time Push Notification Engine](#8-real-time-push-notification-engine)
+  - [9. Automated 15-Minute Moderation & Penalization Engine](#9-automated-15-minute-moderation--penalization-engine)
+- [6. Database Design](#6-database-design)
   - [Entity-Relationship Diagram](#entity-relationship-diagram)
-  - [Schema Definitions & Database Specifications](#schema-definitions--database-specifications)
-- [7. Comprehensive API Documentation](#7-comprehensive-api-documentation)
-  - [Authentication & Identity Routes](#authentication--identity-routes)
-  - [User & Profile Routes](#user--profile-routes)
-  - [Worker Routes](#worker-routes)
-  - [Client & Booking Routes](#client--booking-routes)
-  - [Meeting & Video Consultation Routes](#meeting--video-consultation-routes)
-  - [Payments & Wallet Routes](#payments--wallet-routes)
-  - [Communication Routes (Chat & Notifications)](#communication-routes-chat--notifications)
-  - [Concerns & Reviews Routes](#concerns--reviews-routes)
-  - [Media & Storage Routes](#media--storage-routes)
-  - [Admin Management & Governance Routes](#admin-management--governance-routes)
-- [8. Authentication, Authorization & Security](#8-authentication-authorization--security)
-  - [JWT Dual-Token Rotation Strategy](#jwt-dual-token-rotation-strategy)
-  - [Role-Based Access Control (RBAC) Matrix](#role-based-access-control-rbac-matrix)
-  - [Edge Middleware & Server Action Security](#edge-middleware--server-action-security)
-- [9. Third-Party Integrations](#9-third-party-integrations)
-- [10. Project Directory Structure](#10-project-directory-structure)
-- [11. Installation & Local Development Setup](#11-installation--local-development-setup)
-- [12. Environment Variable Configuration](#12-environment-variable-configuration)
-- [13. Production Deployment Architecture](#13-production-deployment-architecture)
-- [14. Error Handling, Logging & Reliability](#14-error-handling-logging--reliability)
-- [15. Roadmap & Future Improvements](#15-roadmap--future-improvements)
-- [16. Contributing & License](#16-contributing--license)
+- [7. Concise API Overview](#7-concise-api-overview)
+  - [Authentication & Identity](#authentication--identity)
+  - [User & Profile Management](#user--profile-management)
+  - [Client Services & Workers](#client-services--workers)
+  - [Worker Operations & Schedule](#worker-operations--schedule)
+  - [Meetings & Video Consultations](#meetings--video-consultations)
+  - [Payments, Wallet & Transactions](#payments-wallet--transactions)
+  - [Communication (Chat & Notifications)](#communication-chat--notifications)
+  - [Concerns, Reviews & Media](#concerns-reviews--media)
+  - [Admin Governance & Operations](#admin-governance--operations)
+- [8. Authentication & Security](#8-authentication--security)
+  - [Dual-Token Strategy (Access & Refresh)](#dual-token-strategy-access--refresh)
+  - [Edge Middleware & Route Protection](#edge-middleware--route-protection)
+- [9. Project Directory Structure](#9-project-directory-structure)
+- [10. Installation & Setup](#10-installation--setup)
+- [11. Environment Variable Configuration](#11-environment-variable-configuration)
+  - [Frontend Environment Configuration (.env.example)](#frontend-environment-configuration-envexample)
+  - [Backend Environment Configuration (.env.example)](#backend-environment-configuration-envexample)
+  - [Configuration & Security Notice](#configuration--security-notice)
+- [12. Running the Application](#12-running-the-application)
+- [13. Error Handling, Logging & Reliability](#13-error-handling-logging--reliability)
+- [14. Roadmap & Future Improvements](#14-roadmap--future-improvements)
+- [15. Contributing & License](#15-contributing--license)
 
 ---
 
@@ -81,16 +76,16 @@
 
 ### The Problem
 Finding dependable, background-verified home service professionals (plumbers, electricians, carpenters, cleaners) remains fragmented, opaque, and risky:
-1. **Lack of Trust:** Customers struggle to verify the qualifications, identity proofs, and skill certifications of independent service contractors.
-2. **Scheduling Inflexibility:** Booking physical visits without an initial assessment often leads to wasted time, misdiagnosed issues, and unpredictable pricing.
+1. **Lack of Trust:** Customers struggle to verify credentials, government identity proofs, and skill certificates of independent service workers.
+2. **Scheduling Friction:** Booking physical visits without an initial assessment leads to misdiagnosed problems, wasted travel time, and unpredictable pricing.
 3. **Absence & No-Show Risks:** Service workers frequently miss appointments, while clients cancel abruptly without fair recourse for either party.
-4. **Disorganized Communications:** Relying on personal phone numbers exposes private details and provides no paper trail for disputes or warranty claims.
+4. **Scattered Communication:** Using personal phone numbers exposes private details and provides no paper trail for disputes or warranty claims.
 
 ### The Solution
-**Nest & Nail** is a production-grade full-stack marketplace platform built to streamline the entire residential service journey. By combining a **Domain-Driven Clean Architecture** backend with a modern **Next.js 16 App Router** frontend, Nest & Nail provides:
+**Nest & Nail** is a full-stack marketplace platform built to streamline the entire residential service journey. By combining a **Domain-Driven Clean Architecture** backend with a modern **Next.js 16 App Router** frontend, Nest & Nail provides:
 - **Rigorous Admin KYC:** Workers submit government documents and trade certificates reviewed by platform administrators before accepting jobs.
-- **Dual Service Modalities:** Clients can book **Physical On-Site Appointments** (Half-Day Morning/Evening or Full-Day) or **Live WebRTC Video Consultations** (15-minute triage slots) to troubleshoot and quote jobs remotely.
-- **Geospatial Discovery:** MongoDB `2dsphere` indexes match clients with nearby workers based on real-time coordinates and interactive Leaflet map address selectors.
+- **Dual Service Modalities:** Clients can book **Physical On-Site Appointments** (Half-Day Morning/Evening or Full-Day) or **Live WebRTC Video Consultations** (15-minute diagnostic triage slots) to troubleshoot and quote jobs remotely.
+- **Geospatial Proximity Matching:** MongoDB `2dsphere` indexes pair clients with nearby workers based on coordinates and interactive Leaflet map address selectors.
 - **Fair Tiered Cancellation & Wallet Engine:** Automated refund tiers reward punctuality, with instant wallet credits and a full financial audit ledger.
 - **Autonomous 15-Minute Moderation Daemon:** An automated background job scans scheduled sessions to detect physical no-shows and virtual meeting absences, applying progressive suspensions and issuing automated refunds without manual intervention.
 
@@ -112,55 +107,90 @@ Finding dependable, background-verified home service professionals (plumbers, el
 
 | Role | Persona Goal | Core Workflows |
 |:-----|:-------------|:---------------|
-| **Client** | Homeowners needing fast, reliable repairs or installations. | Discover nearby verified workers, check calendar availability, lock slots, checkout with Razorpay/Wallet, track progress, participate in WebRTC video calls, rate workers, and raise resolution tickets. |
+| **Client** | Homeowners needing fast, reliable repairs or installations. | Discover nearby verified workers, check calendar availability, reserve slots, checkout with Razorpay/Wallet, track progress, participate in WebRTC video calls, rate workers, and raise resolution tickets. |
 | **Worker** | Skilled technicians seeking consistent, verified job requests. | Complete KYC verification by uploading credentials, configure working hours/block dates, accept job dispatches, start/complete jobs, track earnings, and attend video triage calls. |
 | **Admin** | Platform operators managing quality control and safety. | Audit submitted worker identity proofs, manage categories and platform commissions, inspect meetings/chats, arbitrate customer concerns, and oversee transactions. |
 
 ### High-Level Value Proposition
-- **Enterprise-Grade Clean Architecture:** Strict decoupling between Presentation, Application, Domain, and Infrastructure ensures isolated testability and zero vendor lock-in.
+- **Enterprise-Grade Clean Architecture:** Strict decoupling between Presentation, Application, Domain, and Infrastructure ensures isolated testability and maintainability.
 - **Unified TypeScript Monorepo:** Managed via PNPM workspaces with synchronized domain types and DTO definitions across client and server.
-- **Zero-Polling Real-Time Experience:** Socket.io handles instant chat, call handshakes, and system notifications without taxing the client battery or network.
+- **Zero-Polling Real-Time Experience:** Socket.io handles instant chat, WebRTC signaling, and system notifications without taxing device battery or network.
 
 ---
 
-## 2. Technology Stack
+## 2. Features by User Role
+
+### Client Capabilities
+- **Flexible Onboarding:** Email/Password registration with OTP verification, Google OAuth single sign-on, and role switching.
+- **Interactive Location Selection:** Interactive Leaflet map with Nominatim OpenStreetMap reverse geocoding to save home and work addresses with precise GPS coordinates.
+- **Worker Discovery:** Filter workers by trade categories, proximity, rating, and hourly/daily rates.
+- **Dual-Booking Modalities:** Reserve physical visits (Half-Day Morning/Evening or Full-Day) or 15-minute diagnostic WebRTC video consultations.
+- **Temporary Slot Locking:** 10-minute slot reservations during checkout to prevent double-booking conflicts.
+- **Integrated Payments & Wallet:** Pay using Razorpay or an internal wallet, with automatic transaction tracking and top-ups.
+- **Service Tracking:** Real-time visibility into booking statuses (`PENDING`, `CONFIRMED`, `IN_PROGRESS`, `COMPLETED`).
+- **Tiered Cancellation:** Automated refund tiers based on the time elapsed since booking.
+- **Real-Time Communication:** In-app chat with attachment support and peer-to-peer WebRTC video consultations.
+- **Reviews & Concerns:** Rate completed services and submit dispute tickets with image evidence.
+
+### Worker Capabilities
+- **KYC Verification:** Upload national identity proofs and trade certificates directly to AWS S3 via presigned URLs for admin approval.
+- **Trade & Skill Configuration:** Select authorized service categories and configure specific trade skills.
+- **Schedule Management:** Block specific calendar dates or slot windows (`MORNING_HALF`, `EVENING_HALF`, `FULL_DAY`).
+- **Job Lifecycle Execution:** View dispatches, view client addresses, transition jobs to `IN_PROGRESS`, and mark as `COMPLETED`.
+- **Earnings & Wallet:** Track earnings, receive automatic deposits upon job completion, and review payout history.
+- **Worker Dashboard:** View weekly job counts, customer ratings, ongoing tasks, and total revenue.
+- **Virtual Consultations:** Attend scheduled 15-minute diagnostic triage calls directly from the browser.
+
+### Admin Governance & Moderation
+- **Executive Analytics:** High-level overview of active users, gross booking volume, platform commission, and refund metrics.
+- **KYC Verification Queue:** Dedicated interface to review worker credentials and approve or reject applications with feedback.
+- **User & Access Management:** View all clients and workers with capabilities to block/unblock accounts and toggle suspensions.
+- **Category Management:** Full CRUD operations for service categories with custom icons and active status toggles.
+- **Service Auditing:** Complete ledger of all platform bookings, worker assignments, timestamps, and fees.
+- **Dispute Resolution:** Review customer and worker concerns, inspect attached evidence photos, and record resolution verdicts.
+- **Automated Moderation Daemon:** Background job running every 15 minutes to detect no-shows and meeting absences, applying progressive suspensions and automatic refunds.
+- **Transaction Ledger:** Real-time financial audit trail of all platform payments, Razorpay order IDs, credits, and debits.
+
+---
+
+## 3. Technology Stack
 
 Every technology listed below is verified directly within the repository codebase:
 
 | Category | Technology | Version | Purpose in Nest & Nail |
 |:---|:---|:---|:---|
-| **Frontend Framework** | **Next.js (App Router)** | `16.2.6` | Powers server-side rendering (SSR), edge routing, layouts, and server actions with Turbopack compilation. |
-| **UI Library** | **React** | `19.1.0` | Powers declarative, concurrent component rendering across all client views. |
+| **Frontend Framework** | **Next.js (App Router)** | `16.2.6` | Server-side rendering (SSR), edge routing, layouts, and server actions compiled with Turbopack. |
+| **UI Library** | **React** | `19.1.0` | Declarative, concurrent component rendering across all client views. |
 | **Styling & Design** | **Tailwind CSS** | `v4.0.0` | Utility-first styling with `@tailwindcss/postcss` and dynamic styling via `clsx` and `tailwind-merge`. |
-| **Headless UI Primitives** | **Radix UI** | Multiple | Accessible, unstyled primitives for dialogs, labels, separators, and responsive navigation menus. |
+| **UI Primitives** | **Radix UI** | Multiple | Accessible primitives for dialogs, labels, separators, and responsive navigation menus. |
 | **Icons & Visuals** | **Lucide React** / **Heroicons** | `^0.546.0` | SVG icons used across navigation, dashboard widgets, and status badges. |
 | **State Management** | **Zustand** | `5.0.8` | Client-side reactive authentication store with localStorage persistence and hydration reconciliation. |
-| **Client HTTP Transport** | **Axios** | `1.12.2` | Configured with interceptors for bearer authentication and backend REST communication. |
+| **HTTP Client** | **Axios** | `1.12.2` | Configured with interceptors for bearer authentication and backend REST communication. |
 | **Maps & Geolocation** | **Leaflet** & **React-Leaflet** | `1.9.4` / `5.0.0` | Interactive map rendering, pin placement, and reverse geocoding via OpenStreetMap Nominatim. |
 | **Charts & Analytics** | **Recharts** | `3.8.1` | Admin and worker metrics visualization (revenue trends, booking volume, user distribution). |
-| **Backend Runtime** | **Node.js** | `>=20.x` | High-performance asynchronous JavaScript execution runtime. |
+| **Backend Runtime** | **Node.js** | `>=20.x` | Asynchronous JavaScript execution runtime. |
 | **Web Server Framework** | **Express.js** | `4.18.2` | REST API layer handling routing, middlewares, and controller execution. |
-| **Language** | **TypeScript** | `5.9.3` | Enforces static typing across the entire monorepo. |
+| **Language** | **TypeScript** | `5.9.3` | Enforces static typing across both frontend and backend packages. |
 | **Database & ODM** | **MongoDB** & **Mongoose** | `8.0.0` | Document database utilized with schemas, discriminators, compound indexes, and 2dsphere geo-indexing. |
 | **Real-Time Engine** | **Socket.io** & **Client** | `4.8.3` | Manages live chat, presence tracking, system broadcasts, and WebRTC signaling. |
-| **Video Telephony** | **WebRTC (Browser Native)** | Native P2P | Peer-to-peer audio/video streaming negotiated over Socket.io signaling rooms. |
+| **Video Telephony** | **WebRTC (Native)** | Native P2P | Peer-to-peer audio/video streaming negotiated over Socket.io signaling rooms. |
 | **Cloud Storage** | **AWS S3 SDK v3** | `3.990.0` | Secure direct-to-S3 uploads and downloads via Presigned URLs (`@aws-sdk/s3-request-presigner`). |
 | **Payment Gateway** | **Razorpay Node SDK** | `2.9.6` | Order generation, checkout capture, and HMAC-SHA256 signature verification. |
-| **Email Service** | **Nodemailer** | `7.0.10` | SMTP delivery for 6-digit OTP verification codes and password recovery emails. |
+| **Email Service** | **Nodemailer** | `7.0.10` | SMTP delivery for 6-digit OTP verification codes. |
 | **Authentication & Tokens**| **JSONWebToken** & **Jose** | `9.0.2` / `6.1.2` | Access and Refresh token generation, validation, and edge decoding in Next.js middleware. |
 | **Password Security** | **Bcrypt.js** | `2.4.3` | Salt generation and cryptographic hashing for secure password storage. |
-| **OAuth Integration** | **Google Auth Library** | `10.5.0` | IdToken validation for seamless single sign-on (SSO). |
-| **Logging & Auditing** | **Winston** & **Daily Rotate** | `3.18.3` / `5.0.0`| Structured logging with log rotation, custom formats, and console/file transports. |
-| **Form & Pin Validation** | **Zod** & **Input-OTP** | `4.1.12` / `1.4.2`| Runtime schema validation and segmented 6-digit pin entry UI components. |
-| **Workspace Management** | **PNPM** | `v9+` | Fast, disk-efficient monorepo workspace package manager. |
+| **OAuth Integration** | **Google Auth Library** | `10.5.0` | IdToken validation for single sign-on (SSO). |
+| **Logging & Auditing** | **Winston** & **Daily Rotate** | `3.18.3` / `5.0.0`| Structured logging with daily rotation, custom formats, and console/file transports. |
+| **Form Validation** | **Zod** & **Input-OTP** | `4.1.12` / `1.4.2`| Runtime schema validation and segmented 6-digit pin entry UI components. |
+| **Workspace Management** | **PNPM** | `v9+` | Disk-efficient monorepo workspace package manager. |
 
 ---
 
-## 3. System Architecture
+## 4. System Architecture
 
 ### High-Level Architecture
 
-The platform follows a distributed, multi-tiered architecture where the Next.js frontend and Express backend communicate via RESTful HTTP APIs and persistent WebSocket connections.
+The platform follows a multi-tiered architecture where the Next.js frontend and Express backend communicate via RESTful HTTP APIs and persistent WebSocket connections.
 
 ```mermaid
 graph TB
@@ -180,7 +210,7 @@ graph TB
     subgraph BackendAPI["Express.js API Layer (Port 4000)"]
         CORSMw["CORS & Cookie Parser"]
         ReqLog["Winston Request Logger"]
-        AuthMw["AuthMiddleware<br/>(JWT Verification & RBAC)"]
+        AuthMw["AuthMiddleware<br/>(JWT Verification)"]
         Routes["API Route Handlers"]
         ErrorHandler["Centralized Error Handler"]
     end
@@ -199,7 +229,7 @@ graph TB
         RTService["RealtimeService"]
     end
 
-    subgraph Persistence["Database & Cloud Services"]
+    subgraph Persistence["Database & External Services"]
         MongoDB[("MongoDB Replica Set<br/>(Geo 2dsphere, Compound & TTL Indexes)")]
         AWSS3["AWS S3 Bucket<br/>(Identity Docs, Certs, Proofs)"]
         Razorpay["Razorpay Payment Gateway"]
@@ -232,7 +262,7 @@ graph TB
 
 ### Backend Clean Architecture & Domain-Driven Design
 
-The backend strictly implements the **Clean Architecture** paradigm proposed by Robert C. Martin. The fundamental rule is the **Dependency Rule**: *Source code dependencies must point only inward toward higher-level policies.*
+The backend strictly implements **Clean Architecture**. The fundamental principle is the **Dependency Inversion Principle**: source code dependencies point only inward toward domain logic.
 
 ```mermaid
 graph TD
@@ -270,27 +300,11 @@ graph TD
     DISystem -.->|Wires Implementations into| PresentationLayer
 ```
 
-#### Detailed Layer Responsibilities:
-
-1. **Domain Layer (`backend/src/domain/`)**:
-   - Contains pure business entities (`User`, `Worker`, `Service`, `Wallet`, `Payment`, `Review`, `Concern`).
-   - Declares abstract repository interfaces (`IServiceRepository`, `IWalletRepository`, `IWorkerScheduleRepository`) and gateway contracts (`IPaymentGateway`).
-   - Defines domain-specific errors (`DomainError`, `AuthenticationError`, `UserBlockedError`, `UserNotFoundError`).
-   - Has **zero dependencies** on databases, frameworks, or external packages.
-
-2. **Application Layer (`backend/src/application/`)**:
-   - Contains single-purpose business use case classes (`BookWorkerUseCase`, `CancelServiceUseCase`, `ProcessModerationActionsUseCase`, `VerifyPaymentUseCase`).
-   - Contains Data Transfer Objects (DTOs) defining strict input and output shapes.
-   - Defines application service contracts (`ITokenService`, `IEmailService`, `IOtpService`, `IRealtimeService`).
-
-3. **Infrastructure Layer (`backend/src/infrastructure/`)**:
-   - Implements domain repository interfaces using Mongoose models (`ServiceRepository`, `UserRepositoryFactory`, `WalletRepository`).
-   - Integrates third-party services via adapter classes (`RazorpayGateway`, `S3Service`, `NodemailerEmailService`, `BcryptPasswordHasher`, `JwtTokenService`).
-   - Hosts the Dependency Injection Container (`DIContainer`), which assembles all instances using constructor injection without third-party reflection libraries.
-
-4. **Presentation Layer (`backend/src/presentation/`)**:
-   - Contains Express controllers converting HTTP requests into DTOs, invoking use cases, and formatting standardized responses using `ResponseHandler`.
-   - Contains Express route definitions and middlewares (`AuthMiddleware`, `RequestLogger`, `errorHandler`, `multerMiddleware`).
+#### Layer Responsibilities:
+1. **Domain Layer (`backend/src/domain/`)**: Pure business entities (`User`, `Worker`, `Service`, `Wallet`, `Payment`, `Review`, `Concern`), repository contracts, and domain errors with zero dependencies on frameworks or libraries.
+2. **Application Layer (`backend/src/application/`)**: Single-responsibility use cases (`BookWorkerUseCase`, `CancelServiceUseCase`, `ProcessModerationActionsUseCase`), DTOs, and application interfaces.
+3. **Infrastructure Layer (`backend/src/infrastructure/`)**: Mongoose repository implementations, third-party adapters (`RazorpayGateway`, `S3Service`, `NodemailerEmailService`), and pure dependency injection via `DIContainer`.
+4. **Presentation Layer (`backend/src/presentation/`)**: Express controllers, routes, and middlewares (`AuthMiddleware`, `errorHandler`, `RequestLogger`).
 
 ---
 
@@ -302,7 +316,7 @@ The frontend uses Next.js App Router conventions with role-based route groups:
 graph TD
     subgraph Routing["Next.js App Router Structure"]
         RootLayout["app/layout.tsx (Providers, Toast, SocketContext)"]
-        AuthGroup["app/(auth)/ (login, signup, otp, forgot-password)"]
+        AuthGroup["app/(auth)/ (login, signup, otp)"]
         ClientGroup["app/client/ (home, workers, bookings, meetings, profile)"]
         WorkerGroup["app/worker/ (dashboard, services, schedule, wallet, profile)"]
         AdminGroup["app/admin/ (dashboard, clients, workers, verification, categories)"]
@@ -331,7 +345,7 @@ graph TD
 
 ### End-to-End Request Lifecycle
 
-To illustrate how data travels across all architectural boundaries, here is the exact trace of a **Service Booking** operation:
+The diagram below illustrates how an operation travels across architectural boundaries:
 
 ```mermaid
 sequenceDiagram
@@ -346,10 +360,9 @@ sequenceDiagram
     participant UC as BookWorkerUseCase.execute
     participant LockRepo as WorkerScheduleRepository
     participant SvcRepo as ServiceRepository
-    participant NotifRepo as NotificationRepository
     participant DB as MongoDB Atlas
 
-    Client->>UI: Selects Dates, Slots & Clicks "Confirm Booking"
+    Client->>UI: Selects Dates & Slots; Clicks "Confirm"
     UI->>SA: bookWorkerAction(bookingPayload)
     SA->>API: POST /api/client/services/book
     API->>Route: HTTP POST with Bearer Cookie
@@ -366,9 +379,6 @@ sequenceDiagram
     SvcRepo->>DB: ServiceModel.create(...)
     DB-->>SvcRepo: Service Persisted (Status: PENDING)
     
-    UC->>NotifRepo: create(workerNotification)
-    NotifRepo->>DB: NotificationModel.create(...)
-    
     UC-->>Ctrl: Returns ServiceResponseDTO
     Ctrl-->>API: 201 Created { success: true, payload: service }
     API-->>SA: Response mapped
@@ -378,9 +388,9 @@ sequenceDiagram
 
 ---
 
-## 4. Visual Workflow Diagrams
+## 5. Visual Workflow Diagrams
 
-### 1. User Registration & OTP Flow
+### 1. User Registration & OTP Verification
 
 ```mermaid
 sequenceDiagram
@@ -434,37 +444,7 @@ sequenceDiagram
     Frontend->>User: Redirects to Dashboard based on Role
 ```
 
-### 3. Password Recovery & Reset Flow
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor User as User
-    participant UI as Forgot Password Page
-    participant AuthAPI as AuthController
-    participant SMTP as Nodemailer
-    participant DB as MongoDB (Otp & User)
-
-    User->>UI: Submits registered email
-    UI->>AuthAPI: POST /api/auth/forgot-password { email }
-    AuthAPI->>DB: Verify user existence
-    AuthAPI->>DB: Generate & persist 6-digit OTP (TTL: 120s)
-    AuthAPI->>SMTP: Dispatch OTP email
-    AuthAPI-->>UI: OTP sent confirmation
-    User->>UI: Enters OTP & New Password
-    UI->>AuthAPI: POST /api/auth/reset-password { email, otp, newPassword }
-    AuthAPI->>DB: Verify OTP match & expiration
-    alt Valid OTP
-        AuthAPI->>DB: Hash new password with bcrypt & update UserModel
-        AuthAPI->>DB: Invalidate/Delete OTP
-        AuthAPI-->>UI: 200 OK: "Password successfully updated"
-        UI->>User: Redirect to /login
-    else Invalid / Expired OTP
-        AuthAPI-->>UI: 400 Bad Request: "Invalid or expired OTP"
-    end
-```
-
-### 4. Worker Onboarding & KYC Document Verification
+### 3. Worker Onboarding & KYC Document Verification
 
 ```mermaid
 sequenceDiagram
@@ -476,7 +456,7 @@ sequenceDiagram
     actor Admin as Platform Admin
     participant DB as MongoDB (UserModel)
 
-    Worker->>Portal: Fills Trade Categories & Hourly/Daily Rates
+    Worker->>Portal: Fills Trade Categories & Rates
     Worker->>Portal: Selects Government ID & Trade Certificates
     Portal->>Backend: GET /api/media/s3-upload-url (fileName, type)
     Backend-->>Portal: Returns Presigned S3 Upload URL
@@ -500,85 +480,12 @@ sequenceDiagram
     end
 ```
 
-### 5. Geospatial Worker Discovery & Availability Query
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Client as Client
-    participant DiscoverUI as /client/workers
-    participant Backend as ClientWorkerController
-    participant Svc as GetAvailableWorkersUseCase
-    participant DB as MongoDB Atlas
-
-    Client->>DiscoverUI: Enters Location (GPS / Leaflet) & Category
-    DiscoverUI->>Backend: GET /api/client/workers?category=Plumbing&lat=12.97&lng=77.59
-    Backend->>Svc: execute(filters, coordinates)
-    Svc->>DB: UserModel.aggregate() with $geoNear (2dsphere index)
-    Note over Svc,DB: Filters: role: "worker", isVerified: "VERIFIED",<br/>isBlocked: false, isSuspended: false
-    DB-->>Svc: Returns ranked workers with distance calculation
-    Svc-->>Backend: Worker DTOs with ratings & hourly rates
-    Backend-->>DiscoverUI: JSON response
-    DiscoverUI->>Client: Renders Worker Cards on interactive Map & List
-```
-
-### 6. Service Booking & Slot Reservation
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Client as Client
-    participant Modal as BookingModal
-    participant Backend as ClientServiceController
-    participant SchedRepo as WorkerScheduleRepository
-    participant DB as MongoDB
-
-    Client->>Modal: Selects Date (e.g., Nov 18) & Slot (MORNING_HALF)
-    Modal->>Backend: POST /api/client/services/lock-slots { workerId, slots }
-    Backend->>SchedRepo: lockSlots(workerId, slots, clientId)
-    SchedRepo->>DB: Upsert WorkerSchedule (lockedUntil = now + 10m)
-    DB-->>Backend: Slots temporarily reserved
-    Backend-->>Modal: 200 OK (Proceed to Payment)
-    Note over Modal,Client: Client has 10 minutes to complete checkout.<br/>If aborted, lock expires automatically.
-```
-
-### 7. Payment Processing (Razorpay & Internal Wallet)
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Client as Client
-    participant Checkout as Payment Screen
-    participant Backend as PaymentController
-    participant Gateway as RazorpayGateway / WalletRepository
-    participant DB as MongoDB (Payment & Transaction)
-
-    Client->>Checkout: Chooses Payment Method (Razorpay / Wallet)
-    alt Payment via Razorpay
-        Checkout->>Backend: POST /api/payment/create-order { serviceId, amount }
-        Backend->>Gateway: razorpay.orders.create({ amount * 100, INR })
-        Gateway-->>Backend: Returns orderId
-        Backend-->>Checkout: orderId, keyId, amount
-        Checkout->>Client: Launches Razorpay Modal Checkout
-        Client->>Checkout: Completes Card / UPI Payment
-        Checkout->>Backend: POST /api/payment/verify { orderId, paymentId, signature }
-        Backend->>Backend: HMAC-SHA256 signature verification
-        Backend->>DB: Persist Payment (status: SUCCESS) & update Service
-    else Payment via Internal Wallet
-        Checkout->>Backend: POST /api/payment/wallet { serviceId, amount }
-        Backend->>Gateway: walletRepo.debitBalance(clientId, amount)
-        Gateway->>DB: Atomically deduct balance & record Transaction
-        Backend->>DB: Update Service (paymentStatus: SUCCESS)
-    end
-    Backend-->>Checkout: Payment Confirmation & Service Confirmed
-```
-
-### 8. Physical Service Execution Lifecycle
+### 4. Physical Service Execution Lifecycle
 
 ```mermaid
 stateDiagram-v2
     [*] --> PENDING: Client Books Service
-    PENDING --> CONFIRMED: Advance / Full Payment Verified
+    PENDING --> CONFIRMED: Payment Verified
     CONFIRMED --> IN_PROGRESS: Worker Arrives & Clicks "Start Service"
     IN_PROGRESS --> COMPLETED: Worker Completes Job & Clicks "Complete"
     
@@ -594,7 +501,7 @@ stateDiagram-v2
     NO_SHOW --> [*]
 ```
 
-### 9. Tiered Cancellation & Automatic Refund Matrix
+### 5. Tiered Cancellation & Automatic Refund Matrix
 
 ```mermaid
 flowchart TD
@@ -620,7 +527,7 @@ flowchart TD
     NotifyWorker --> Done([Cancellation Complete])
 ```
 
-### 10. WebRTC Video Consultation & Socket.io Signaling
+### 6. WebRTC Video Consultation & Socket.io Signaling
 
 ```mermaid
 sequenceDiagram
@@ -651,7 +558,7 @@ sequenceDiagram
     Note over Client,Worker: Direct P2P Audio/Video Media Stream Established
 ```
 
-### 11. Real-Time Chat & Bidirectional Messaging
+### 7. Real-Time Chat & Instant Messaging
 
 ```mermaid
 sequenceDiagram
@@ -672,7 +579,7 @@ sequenceDiagram
     Sockets-->>Client: Message Acknowledged & Sent
 ```
 
-### 12. Real-Time Push Notification Engine
+### 8. Real-Time Push Notification Engine
 
 ```mermaid
 sequenceDiagram
@@ -682,18 +589,18 @@ sequenceDiagram
     participant DB as MongoDB (NotificationModel)
     participant RTSvc as RealtimeService
     participant Sockets as SocketServer (userSocketMap)
-    actor User as Client / Worker Client Tabs
+    actor User as Client / Worker Tabs
 
     Event->>UC: execute({ userId, title, message, type, data })
     UC->>DB: Persist Notification (isRead: false)
     UC->>RTSvc: emitToUser(userId, "notification", notificationDTO)
     RTSvc->>Sockets: getSocketIds(userId)
-    Note over Sockets: Delivers to all open tabs for this user simultaneously
+    Note over Sockets: Delivers simultaneously to all active tabs for this user
     Sockets-->>User: socket.emit("notification", notificationDTO)
-    User->>User: Toast notification pop-up & unread counter increment
+    User->>User: Toast notification & unread count badge update
 ```
 
-### 13. Automated 15-Minute Moderation & Penalization Engine
+### 9. Automated 15-Minute Moderation & Penalization Engine
 
 ```mermaid
 flowchart TD
@@ -719,54 +626,7 @@ flowchart TD
 
 ---
 
-## 5. Feature Matrix by User Role
-
-### Client Capabilities
-
-| Capability | Module / Route | Technical Implementation |
-|:---|:---|:---|
-| **User Onboarding** | `/(auth)/signup`, `/otp` | Form validation with Zod, bcrypt hashing, 6-digit OTP delivery via Nodemailer. |
-| **Google Sign-In** | `/(auth)/login` | `@react-oauth/google` integration, backend ID token validation via `google-auth-library`. |
-| **Worker Discovery** | `/client/workers` | MongoDB `$geoNear` query matching categories, location radius, and sorting by rating. |
-| **Interactive Map Selector**| `/client/profile` | Leaflet map with Nominatim OpenStreetMap reverse geocoding for precise coordinates. |
-| **Availability & Slots** | `/client/workers/[id]` | Real-time query of `WorkerSchedule`, slot locking (Morning/Evening/Full Day & Video slots). |
-| **Service Booking** | `/client/workers/[id]` | Transactional multi-slot booking with temporary 10-minute hold to prevent race conditions. |
-| **Multi-Gateway Payment** | `/client/bookings` | Native Razorpay checkout modal + internal Wallet deduction with automatic ledger entries. |
-| **Booking Tracking** | `/client/bookings` | Real-time status pipeline (`PENDING` -> `CONFIRMED` -> `IN_PROGRESS` -> `COMPLETED`). |
-| **Tiered Cancellation** | `/client/bookings` | Programmatic refund tiers: 100% (<15m), 90% (15m-1hr), 50% (1-6hr), locked (>6hr). |
-| **Live Consultation** | `/client/video-call/[id]` | WebRTC peer-to-peer audio/video with Socket.io signaling and connection state tracking. |
-| **Instant Messaging** | Floating Chat Widget | Socket.io room-based instant chat with read receipts and attachment handling. |
-| **Reviews & Feedback** | `/client/bookings` | Star ratings and written reviews saved to `ReviewModel`, updating worker average rating. |
-| **Concern Ticketing** | `/client/bookings` | Submit dispute tickets with image upload support for admin arbitration. |
-
-### Worker Capabilities
-
-| Capability | Module / Route | Technical Implementation |
-|:---|:---|:---|
-| **KYC Verification** | `/worker/profile` | Upload national identity documents and trade certificates directly to S3 via Presigned URLs. |
-| **Category Selection** | `/worker/profile` | Map trade skills to admin-defined categories (e.g. Electrician, Carpentry, Plumbing). |
-| **Calendar & Blocking** | `/worker/schedule` | Block/unblock individual dates and slot windows (`MORNING_HALF`, `EVENING_HALF`, `FULL_DAY`). |
-| **Job Management** | `/worker/services` | View upcoming dispatches, client GPS coordinates, start job, and complete job. |
-| **Earnings & Wallet** | `/worker/wallet` | View current balance, automated credit deposits upon job completion, and transaction history. |
-| **Worker Dashboard** | `/worker/dashboard` | Visual metrics: weekly job count, customer ratings, ongoing tasks, and total earnings. |
-| **Video Consultation** | `/worker/video-call/[id]` | Join scheduled 15-minute diagnostic triage calls directly from the dashboard. |
-
-### Admin Governance & Moderation
-
-| Capability | Module / Route | Technical Implementation |
-|:---|:---|:---|
-| **Platform Analytics** | `/admin/dashboard` | High-level metrics: user breakdown, gross booking value, refund volume, platform commission. |
-| **Worker Verification Queue**| `/admin/verification` | Audit submitted identity documents and certificates with one-click approve/reject actions. |
-| **User Access Control** | `/admin/users` | Toggle active/blocked status for any user, invalidating active refresh sessions. |
-| **Category Management** | `/admin/categories` | CRUD operations on service categories with custom SVG icons and enable/disable switches. |
-| **Service Auditing** | `/admin/services` | Detailed ledger of all platform bookings, worker assignments, timestamps, and fees. |
-| **Concern Resolution** | `/admin/concerns` | Review client/worker dispute messages, inspect evidence photos, and record resolution verdicts. |
-| **Autonomous Moderation** | `backend/src/index.ts` | 15-minute background worker detecting no-shows, issuing automated wallet refunds and suspensions. |
-| **Financial Audit Trail** | `/admin/transactions` | Real-time inspection of all platform payments, Razorpay order IDs, credits, and debits. |
-
----
-
-## 6. Database Architecture & Data Modeling
+## 6. Database Design
 
 ### Entity-Relationship Diagram
 
@@ -790,41 +650,21 @@ erDiagram
         string name
         string email UK
         number phone
-        string passwordhash
-        boolean isBlocked
-        boolean isOnline
-        string isVerified
         string role "client | worker | admin"
-        string loginMethod "EMAIL_PASSWORD | GOOGLE"
-        string profilePictureUrl
-        string_array skills
-        string_array documents
-        string_array certificates
-        number rating
-        number totalRatings
-        number weeklyJobCount
+        string isVerified "NOT_VERIFIED | PENDING | VERIFIED | REJECTED"
+        boolean isBlocked
         boolean isSuspended
-        date suspensionEndDate
-        boolean canAcceptBookings
-        date createdAt
     }
 
     ADDRESS {
         string addressId
         string label "HOME | WORK | OTHER"
-        string street
-        string city
-        string state
-        string zip
         Point location "2dsphere [lng, lat]"
-        boolean isDefault
     }
 
     CATEGORY {
         ObjectId _id PK
         string name UK
-        string description
-        string iconUrl
         boolean isActive
     }
 
@@ -833,20 +673,9 @@ erDiagram
         string clientId FK
         string workerId FK
         string category
-        string title
-        string description
-        Point location "2dsphere [lng, lat]"
         date scheduledDate
-        array selectedSlots
-        number numberOfDays
-        number pricePerWorker
-        number totalAmount
         string status "PENDING | CONFIRMED | IN_PROGRESS | COMPLETED | CANCELLED | NO_SHOW"
         string paymentStatus "PENDING | SUCCESS | FAILED | REFUNDED"
-        date startedAt
-        date completedAt
-        date cancelledAt
-        object videoCall "RoomId, Timestamps, JoinedUsers"
     }
 
     WORKER_SCHEDULE {
@@ -856,15 +685,12 @@ erDiagram
         string slotType "MORNING_HALF | EVENING_HALF | FULL_DAY | VIDEO_SLOTS"
         boolean isBooked
         boolean isAvailable
-        string serviceId FK
-        date lockedUntil
     }
 
     WALLET {
         string walletId PK
         string userId FK
         number balance
-        string currency "INR"
     }
 
     WALLET_TRANSACTION {
@@ -872,43 +698,25 @@ erDiagram
         string userId FK
         number amount
         string type "CREDIT | DEBIT"
-        string description
-        date createdAt
     }
 
     PAYMENT {
         ObjectId _id PK
         string serviceId FK
-        string clientId FK
         number amount
-        string currency "INR"
-        string orderId
-        string paymentId
-        string signature
         string status "CREATED | SUCCESS | FAILED"
-        date createdAt
     }
 
     CONCERN {
         string concernId PK
         string serviceId FK
-        string userId FK
-        string raisedBy "WORKER | CLIENT"
-        string message
         string status "OPEN | RESOLVED | REJECTED"
-        string_array images
-        string resolutionMessage
-        date resolvedAt
     }
 
     REVIEW {
         string reviewId PK
         string serviceId FK,UK
-        string clientId FK
-        string workerId FK
         number rating
-        string review
-        date createdAt
     }
 
     OTP {
@@ -918,277 +726,165 @@ erDiagram
     }
 ```
 
-### Schema Definitions & Database Specifications
-
-1. **User Collection (`UserModel.ts`)**:
-   - Implements Mongoose Discriminators: Base schema discriminator key is `role`. `WorkerModel` extends `UserModel`.
-   - **Geospatial Index:** `UserSchema.index({ "address.location": "2dsphere" })` enables ultra-fast distance queries.
-   - Unique constraints on `userId` and `email`.
-
-2. **Service Collection (`ServiceModel.ts`)**:
-   - Stores physical bookings and virtual video consultations.
-   - **Indexes:**
-     - `{ location: "2dsphere" }` for proximity searches.
-     - `{ workerId: 1, scheduledDate: 1 }` for fast calendar lookups.
-     - `{ clientId: 1 }` for client booking history retrieval.
-
-3. **Worker Schedule Collection (`WorkerScheduleModel.ts`)**:
-   - Manages calendar availability and prevents double bookings.
-   - **Compound Unique Index:** `{ workerId: 1, date: 1, slotType: 1 }` ensures a worker can never be scheduled twice for the same slot.
-
-4. **OTP Collection (`OtpModel.ts`)**:
-   - Stores temporary registration and password reset verification codes.
-   - **Automatic TTL Index:** `OtpSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 120 })` guarantees MongoDB automatically purges expired codes after 2 minutes.
-
-5. **Client-Worker Restriction Collection (`ClientWorkerRestrictionModel.ts`)**:
-   - Enforces cooling-off periods when a client misses a video consultation.
-   - **Indexes:** `{ clientId: 1, workerId: 1 }` and `{ expiresAt: 1 }`.
-
 ---
 
-## 7. Comprehensive API Documentation
+## 7. Concise API Overview
 
-All endpoints are prefixed with `/api`. Verified against backend route files.
+The backend exposes a structured RESTful API mounted under `/api`. Below is a concise overview of the core endpoints grouped by module.
 
-### Authentication & Identity Routes
-*Module: `/api/auth`*
+### Authentication & Identity
+*Handles user signups, credentials verification, OTP lifecycle, token refreshes, and Google single sign-on.*
 
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `POST` | `/api/auth/register` | Register new client or worker account & send OTP | Public |
-| `POST` | `/api/auth/login` | Authenticate with email/password; returns JWT cookies | Public |
-| `POST` | `/api/auth/send-otp` | Request a new 6-digit OTP code | Public |
+| Method | Endpoint | Description | Auth |
+|:---|:---|:---|:---:|
+| `POST` | `/api/auth/register` | Register a new client or worker account | Public |
+| `POST` | `/api/auth/login` | Authenticate with credentials and receive cookies | Public |
+| `POST` | `/api/auth/send-otp` | Request a new 6-digit verification OTP | Public |
 | `POST` | `/api/auth/verify-otp` | Verify submitted OTP code | Public |
-| `POST` | `/api/auth/forgot-password` | Send password recovery OTP email | Public |
-| `POST` | `/api/auth/reset-password` | Reset account password using verified OTP | Public |
-| `POST` | `/api/auth/refresh` | Exchange refresh token for fresh access token | Refresh Cookie |
-| `GET` | `/api/auth/validate` | Verify access token & account status | Authenticated (Any) |
-| `PATCH`| `/api/auth/change-password` | Change account password | Authenticated (Any) |
-| `POST` | `/api/auth/google` | Single Sign-On using Google OAuth idToken | Public |
+| `POST` | `/api/auth/refresh` | Exchange refresh token for fresh access token | Cookie |
+| `GET` | `/api/auth/validate` | Validate current session and user status | Bearer / Cookie |
+| `POST` | `/api/auth/google` | Authenticate using Google OAuth idToken | Public |
 
-### User & Profile Routes
-*Module: `/api/users` & `/api/auth`*
+### User & Profile Management
+*Manages client and worker user profiles, role toggling, addresses, and skills.*
 
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `GET` | `/api/users/current/:email` | Retrieve current user profile details | Public / Verified |
-| `PATCH`| `/api/users/mode` | Switch active role profile (e.g. client <-> worker)| Authenticated (Any) |
-| `PUT` | `/api/users/user/:userId/profile` | Update profile details and avatar image | Authenticated (Any) |
-| `PATCH`| `/api/users/:userId/skills` | Update professional skills list | Authenticated (Worker) |
-| `POST` | `/api/users/:userId/addresses` | Add new home/work address with GPS coordinates | Authenticated (Client) |
-| `PUT` | `/api/users/:userId/addresses/:addressId`| Edit existing saved address | Authenticated (Client) |
-| `DELETE`| `/api/users/:userId/addresses/:addressId`| Remove saved address | Authenticated (Client) |
+| Method | Endpoint | Description | Auth |
+|:---|:---|:---|:---:|
+| `PATCH`| `/api/users/mode` | Switch active role profile (e.g., Client <-> Worker) | Bearer / Cookie |
+| `PUT` | `/api/users/user/:userId/profile` | Update user profile and avatar | Bearer / Cookie |
+| `PATCH`| `/api/users/:userId/skills` | Update worker skills list | Bearer / Cookie |
+| `POST` | `/api/users/:userId/addresses` | Add a new address with GPS coordinates | Bearer / Cookie |
+| `DELETE`| `/api/users/:userId/addresses/:addressId` | Delete a saved address | Bearer / Cookie |
 
-### Worker Routes
-*Module: `/api/worker`*
+### Client Services & Workers
+*Handles worker discovery, slot availability queries, slot reservation, and booking cancellations.*
 
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `GET` | `/api/worker/dashboard` | Fetch dashboard KPI metrics (earnings, jobs, ratings)| Authenticated (Worker) |
-| `POST` | `/api/worker/slot/block-dates` | Block calendar dates and slot windows | Authenticated (Worker) |
-| `GET` | `/api/worker/slot/blocked-dates` | Retrieve worker's blocked dates list | Authenticated (Worker) |
-| `GET` | `/api/worker/services` | Get all assigned service jobs | Authenticated (Worker) |
-| `GET` | `/api/worker/services/active` | Retrieve worker's current active ongoing service | Authenticated (Worker) |
-| `GET` | `/api/worker/services/:serviceId` | Get full details of a specific service request | Authenticated (Worker) |
-| `PATCH`| `/api/worker/services/:serviceId/start` | Mark service as started (`IN_PROGRESS`) | Authenticated (Worker) |
-| `PATCH`| `/api/worker/services/:serviceId/complete`| Mark service as completed (`COMPLETED`) | Authenticated (Worker) |
-| `GET` | `/api/worker/meetings/scheduled` | List upcoming video consultation appointments | Authenticated (Worker) |
-| `GET` | `/api/worker/meetings/history` | List historical completed/missed meetings | Authenticated (Worker) |
-| `GET` | `/api/worker/meetings/:serviceId` | Get meeting details by service ID | Authenticated (Worker) |
+| Method | Endpoint | Description | Auth |
+|:---|:---|:---|:---:|
+| `GET` | `/api/client/workers` | Discover workers with geospatial/category filters | Bearer / Cookie |
+| `GET` | `/api/client/workers/:id` | View public worker profile and ratings | Bearer / Cookie |
+| `GET` | `/api/client/workers/:id/availability` | Fetch booked and available calendar slots | Bearer / Cookie |
+| `POST` | `/api/client/services/lock-slots` | Temporarily lock slots for 10 minutes | Bearer / Cookie |
+| `POST` | `/api/client/services/book` | Confirm service booking | Bearer / Cookie |
+| `GET` | `/api/client/services/ongoing` | Get active/in-progress services | Bearer / Cookie |
+| `PATCH`| `/api/client/services/:serviceId/cancel` | Cancel booking (triggers tiered refund matrix) | Bearer / Cookie |
 
-### Client & Booking Routes
-*Module: `/api/client`*
+### Worker Operations & Schedule
+*Powers the worker dashboard, calendar blocking, and job status transitions.*
 
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `GET` | `/api/client/workers` | Discover workers with geospatial/category filters | Authenticated (Client) |
-| `GET` | `/api/client/workers/:id` | Get public worker profile details & portfolio | Authenticated (Client) |
-| `GET` | `/api/client/workers/:id/availability` | Fetch available & booked slots for a worker | Authenticated (Client) |
-| `POST` | `/api/client/services/lock-slots` | Temporarily hold slot reservations for 10 minutes | Authenticated (Client) |
-| `POST` | `/api/client/services/unlock-slots` | Release held slot reservations | Authenticated (Client) |
-| `POST` | `/api/client/services/book` | Create confirmed service booking | Authenticated (Client) |
-| `GET` | `/api/client/services/ongoing` | Get active/in-progress service bookings | Authenticated (Client) |
-| `GET` | `/api/client/services/history` | Get past service booking history | Authenticated (Client) |
-| `GET` | `/api/client/services/:serviceId` | Get specific booking details | Authenticated (Client) |
-| `PATCH`| `/api/client/services/:serviceId/cancel` | Cancel booking (triggers tiered refund calculation) | Authenticated (Client/Worker) |
+| Method | Endpoint | Description | Auth |
+|:---|:---|:---|:---:|
+| `GET` | `/api/worker/dashboard` | Fetch worker KPI metrics and earnings | Worker Only |
+| `POST` | `/api/worker/slot/block-dates` | Block calendar dates and time slots | Worker Only |
+| `GET` | `/api/worker/services` | List all assigned jobs | Worker Only |
+| `PATCH`| `/api/worker/services/:serviceId/start` | Mark service as started (`IN_PROGRESS`) | Worker Only |
+| `PATCH`| `/api/worker/services/:serviceId/complete` | Mark service as finished (`COMPLETED`) | Worker Only |
 
-### Meeting & Video Consultation Routes
-*Module: `/api/client/meetings` & `/api/video-call`*
+### Meetings & Video Consultations
+*Facilitates scheduling, history retrieval, and session management for 15-minute video calls.*
 
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `GET` | `/api/client/meetings/scheduled` | List upcoming client video consultations | Authenticated (Client) |
-| `GET` | `/api/client/meetings/history` | List completed/past video consultations | Authenticated (Client) |
-| `GET` | `/api/client/meetings/:serviceId` | Retrieve video consultation room details | Authenticated (Client) |
-| `POST` | `/api/video-call/join/:serviceId` | Join video consultation room | Authenticated (Any) |
-| `POST` | `/api/video-call/leave/:serviceId`| Leave video consultation room | Authenticated (Any) |
-| `POST` | `/api/video-call/end/:serviceId` | End video consultation session | Authenticated (Any) |
+| Method | Endpoint | Description | Auth |
+|:---|:---|:---|:---:|
+| `GET` | `/api/client/meetings/scheduled` | List upcoming client video consultations | Client Only |
+| `GET` | `/api/worker/meetings/scheduled` | List upcoming worker video consultations | Worker Only |
+| `POST` | `/api/video-call/join/:serviceId` | Join video consultation room | Bearer / Cookie |
+| `POST` | `/api/video-call/leave/:serviceId` | Leave video consultation room | Bearer / Cookie |
+| `POST` | `/api/video-call/end/:serviceId` | End video consultation session | Bearer / Cookie |
 
-### Payments & Wallet Routes
-*Module: `/api` & `/api/wallet` & `/api/transactions`*
+### Payments, Wallet & Transactions
+*Handles payment gateway orders, signature verification, internal wallet balances, and audit logs.*
 
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `POST` | `/api/payment/create-order` | Generate Razorpay order for service payment | Authenticated (Client) |
-| `POST` | `/api/payment/verify` | Verify Razorpay payment signature & confirm job | Authenticated (Client) |
-| `POST` | `/api/payment/wallet` | Pay for service using internal wallet balance | Authenticated (Client) |
-| `GET` | `/api/wallet/balance` | Get authenticated user's wallet balance | Authenticated (Any) |
-| `GET` | `/api/wallet/transactions` | Get wallet ledger transactions | Authenticated (Any) |
-| `POST` | `/api/wallet/recharge/create-order` | Create Razorpay order to top up wallet | Authenticated (Any) |
-| `POST` | `/api/wallet/recharge/verify` | Verify wallet recharge payment & credit balance | Authenticated (Any) |
-| `GET` | `/api/wallet/admin/:userId/balance` | Admin inspects any user's wallet balance | Admin Only |
-| `GET` | `/api/transactions/client` | List client financial transaction ledger | Authenticated (Client) |
-| `GET` | `/api/transactions/worker` | List worker earnings and payout ledger | Authenticated (Worker) |
-| `GET` | `/api/transactions/admin` | Master audit ledger of all platform transactions | Authenticated (Admin) |
+| Method | Endpoint | Description | Auth |
+|:---|:---|:---|:---:|
+| `POST` | `/api/payment/create-order` | Create Razorpay order for booking | Bearer / Cookie |
+| `POST` | `/api/payment/verify` | Verify Razorpay HMAC signature and confirm payment | Bearer / Cookie |
+| `POST` | `/api/payment/wallet` | Complete payment using internal wallet balance | Bearer / Cookie |
+| `GET` | `/api/wallet/balance` | Get authenticated user's wallet balance | Bearer / Cookie |
+| `POST` | `/api/wallet/recharge/create-order` | Create order to top up wallet | Bearer / Cookie |
+| `GET` | `/api/transactions/client` | View client transaction history | Client Only |
+| `GET` | `/api/transactions/worker` | View worker earnings and transaction history | Worker Only |
 
-### Communication Routes (Chat & Notifications)
-*Module: `/api/chat` & `/api/notifications`*
+### Communication (Chat & Notifications)
+*Provides endpoints for conversation history, message persistence, and notifications.*
 
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `POST` | `/api/chat/send` | Persist and send chat message | Authenticated (Any) |
-| `GET` | `/api/chat/:chatId` | Retrieve chat message history for conversation | Authenticated (Any) |
-| `GET` | `/api/notifications` | Fetch unread and read push notifications | Authenticated (Any) |
-| `PATCH`| `/api/notifications/:notificationId/read`| Mark notification as read | Authenticated (Any) |
+| Method | Endpoint | Description | Auth |
+|:---|:---|:---|:---:|
+| `POST` | `/api/chat/send` | Persist and send chat message | Bearer / Cookie |
+| `GET` | `/api/chat/:chatId` | Get message history for a conversation | Bearer / Cookie |
+| `GET` | `/api/notifications` | Fetch user notifications | Bearer / Cookie |
+| `PATCH`| `/api/notifications/:notificationId/read` | Mark a notification as read | Bearer / Cookie |
 
-### Concerns & Reviews Routes
-*Module: `/api/concerns` & `/api/review`*
+### Concerns, Reviews & Media
+*Allows raising dispute tickets, submitting ratings, and requesting secure AWS S3 upload URLs.*
 
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `POST` | `/api/concerns` | Raise a support/dispute concern with image evidence | Authenticated (Any) |
-| `GET` | `/api/concerns` | Retrieve my submitted concerns and status | Authenticated (Any) |
-| `POST` | `/api/review/:serviceId` | Submit customer star rating and review | Authenticated (Client) |
+| Method | Endpoint | Description | Auth |
+|:---|:---|:---|:---:|
+| `POST` | `/api/concerns` | Raise a support/dispute concern with image evidence | Bearer / Cookie |
+| `GET` | `/api/concerns` | Retrieve my submitted concerns and status | Bearer / Cookie |
+| `POST` | `/api/review/:serviceId` | Submit customer star rating and review | Client Only |
+| `GET` | `/api/media/s3-upload-url` | Generate presigned AWS S3 PUT URL for direct upload | Bearer / Cookie |
 
-### Media & Storage Routes
-*Module: `/api/media` & `/api/upload`*
+### Admin Governance & Operations
+*Platform governance, worker KYC auditing, dispute resolution, and category management.*
 
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `GET` | `/api/media/s3-upload-url` | Generate Presigned AWS S3 PUT URL for direct upload| Public / Authenticated |
-| `POST` | `/api/upload/worker/:workerId/profile` | Upload worker profile picture | Authenticated (Worker) |
-| `POST` | `/api/upload/worker/:workerId/document`| Upload worker KYC/trade document | Authenticated (Worker) |
-
-### Admin Management & Governance Routes
-*Module: `/api/admin`*
-
-| Method | Endpoint | Description | Authentication / Roles |
-|:---|:---|:---|:---|
-| `GET` | `/api/admin/dashboard` | Fetch aggregated platform KPIs & revenue metrics | Admin Only |
-| `GET` | `/api/admin/clients` | List all registered clients with filter & pagination | Admin Only |
+| Method | Endpoint | Description | Auth |
+|:---|:---|:---|:---:|
+| `GET` | `/api/admin/dashboard` | Fetch platform KPIs and revenue analytics | Admin Only |
 | `GET` | `/api/admin/workers` | List all workers with verification status filters | Admin Only |
-| `GET` | `/api/admin/users/all` | List all users across the platform | Admin Only |
 | `PATCH`| `/api/admin/verify/:userId` | Approve worker KYC verification | Admin Only |
-| `PATCH`| `/api/admin/reject/:userId` | Reject worker KYC verification with remarks | Admin Only |
+| `PATCH`| `/api/admin/reject/:userId` | Reject worker KYC verification | Admin Only |
 | `PATCH`| `/api/admin/access/:userId` | Block or unblock a user account | Admin Only |
-| `PATCH`| `/api/admin/suspend/:userId` | Toggle worker booking suspension | Admin Only |
-| `GET` | `/api/admin/categories` | List all categories (active & inactive) | Admin Only |
-| `POST` | `/api/admin/categories` | Create new service category | Admin Only |
-| `PUT` | `/api/admin/categories/:id` | Edit service category details | Admin Only |
-| `PATCH`| `/api/admin/categories/:id/toggle-status`| Enable / disable service category | Admin Only |
-| `GET` | `/api/admin/services` | View all platform service requests | Admin Only |
-| `GET` | `/api/admin/services/:serviceId` | Inspect deep details of any service | Admin Only |
-| `GET` | `/api/admin/meetings/meetings` | View all scheduled and completed video meetings | Admin Only |
-| `GET` | `/api/admin/meetings/meetings/:serviceId`| Inspect meeting logs and participant times | Admin Only |
-| `GET` | `/api/admin/concerns` | List all customer and worker dispute tickets | Admin Only |
-| `PATCH`| `/api/admin/concerns/:id/resolve` | Mark concern as resolved with resolution notes | Admin Only |
+| `GET` | `/api/admin/categories` | List all service categories | Admin Only |
+| `POST` | `/api/admin/categories` | Create a new service category | Admin Only |
+| `PATCH`| `/api/admin/concerns/:id/resolve` | Settle and resolve customer/worker dispute | Admin Only |
 | `POST` | `/api/admin/moderation/process` | Manually trigger 15-minute moderation audit check | Admin Only |
 
 ---
 
-## 8. Authentication, Authorization & Security
+## 8. Authentication & Security
 
-### JWT Dual-Token Rotation Strategy
-
-Nest & Nail implements an industry-standard dual-token authentication pattern designed for security and frictionless session maintenance:
+### Dual-Token Strategy (Access & Refresh)
+The platform uses a dual-token authentication flow:
+- **Access Token:** Short-lived (15 minutes / 900 seconds), stored in an HTTP-only cookie or passed in the Authorization header.
+- **Refresh Token:** Long-lived (7 days / 604,800 seconds), stored in a secure HTTP-only cookie, used exclusively to request a new access token.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Client as User Browser
     participant Edge as Next.js Edge Middleware
-    participant Backend as Express Backend (AuthRoutes)
+    participant Backend as Express Backend
     participant TokenSvc as JwtTokenService
 
     Client->>Backend: POST /api/auth/login { email, password }
-    Backend->>TokenSvc: Generate Access Token (15 min) & Refresh Token (7 days)
+    Backend->>TokenSvc: Generate Access Token (15m) & Refresh Token (7d)
     Backend-->>Client: Set HTTP-Only Cookies (accessToken, refreshToken)
     
     Note over Client,Edge: User navigates to protected page (/client/bookings)
-    Client->>Edge: Request Page (Sends accessToken & refreshToken cookies)
+    Client->>Edge: Request Page (Sends cookies)
     Edge->>Edge: verifyAccessToken(accessToken)
     alt Access Token is Valid
-        Edge-->>Client: Allow Navigation to Page
+        Edge-->>Client: Allow Navigation
     else Access Token Expired
         Edge->>Backend: POST /api/auth/refresh (Sends refreshToken)
         alt Refresh Token is Valid
-            Backend->>TokenSvc: Issue New Access Token (15 min)
+            Backend->>TokenSvc: Issue New Access Token
             Backend-->>Edge: Set-Cookie: fresh accessToken
-            Edge-->>Client: Redirect to requested page with fresh cookie
-        else Refresh Token Expired or Invalid
+            Edge-->>Client: Redirect to destination with fresh cookie
+        else Refresh Token Expired / Invalid
             Edge-->>Client: Clear Cookies & Redirect to /login
         end
     end
 ```
 
-### Role-Based Access Control (RBAC) Matrix
-
-| Resource / Route Base | Client | Worker | Admin | Unauthenticated |
-|:---|:---:|:---:|:---:|:---:|
-| `/client/*` | ✅ Granted | ❌ Redirected | ❌ Redirected | ❌ Redirected to `/login` |
-| `/worker/*` | ❌ Redirected | ✅ Granted | ❌ Redirected | ❌ Redirected to `/login` |
-| `/admin/*` | ❌ 403 Forbidden | ❌ 403 Forbidden | ✅ Granted | ❌ Redirected to `/login` |
-| `/api/admin/*` | ❌ 403 Forbidden | ❌ 403 Forbidden | ✅ Allowed | ❌ 401 Unauthorized |
-| `/api/client/*` | ✅ Allowed | ❌ 403 Forbidden | ✅ Allowed | ❌ 401 Unauthorized |
-| `/api/worker/*` | ❌ 403 Forbidden | ✅ Allowed | ✅ Allowed | ❌ 401 Unauthorized |
-| `/api/auth/login`, `/signup` | ❌ Redirected to Home | ❌ Redirected to Dashboard | ❌ Redirected to Admin | ✅ Allowed |
-
-### Edge Middleware & Server Action Security
-- **Cookie Security:** Cookies are transmitted with `httpOnly: true`, `secure: true` (in production), and `sameSite: "lax"`.
-- **Server Action Protection:** Next.js Server Actions validate caller tokens and reject unauthenticated requests.
-- **Role Boundary Enforcement:** Attempts by a client to access `/admin` or `/worker` trigger immediate redirection to their respective home dashboard.
+### Edge Middleware & Route Protection
+- **Edge Route Guards (`frontend/src/middleware.ts`):** Evaluates cookies on incoming requests before rendering. Unauthorized visits to `/client/*`, `/worker/*`, or `/admin/*` automatically redirect to `/login`.
+- **Role Isolation:** Clients attempting to view `/admin` or `/worker` routes are immediately redirected to their corresponding home dashboard.
+- **Cookie Security:** Cookies are issued with `httpOnly: true`, `sameSite: "lax"`, and conditional `secure: true` in production environments.
 
 ---
 
-## 9. Third-Party Integrations
-
-```mermaid
-graph LR
-    subgraph NestAndNail["Nest & Nail Application"]
-        Core["Application Services"]
-    end
-
-    subgraph ExternalServices["Third-Party Providers"]
-        S3["AWS S3 Bucket<br/>(File Storage)"]
-        Razorpay["Razorpay API<br/>(Payments)"]
-        Google["Google Identity<br/>(OAuth 2.0)"]
-        OSM["OpenStreetMap Nominatim<br/>(Geocoding)"]
-        SMTP["Nodemailer SMTP<br/>(Email Delivery)"]
-    end
-
-    Core -->|Presigned PUT/GET URLs| S3
-    Core -->|Orders & Webhook HMAC| Razorpay
-    Core -->|ID Token Verification| Google
-    Core -->|Reverse Coordinates| OSM
-    Core -->|Transactional Emails| SMTP
-```
-
-1. **AWS S3 (`@aws-sdk/client-s3`, `@aws-sdk/s3-request-presigner`)**:
-   - Generates temporary presigned PUT URLs (5-minute expiry) allowing clients to upload heavy files directly to S3 without putting load on the backend server.
-   - Generates presigned GET URLs (1-hour expiry) for admins to securely view private KYC proofs and trade certificates.
-2. **Razorpay Node SDK (`razorpay`)**:
-   - Integrates server-side order generation and client-side modal checkout.
-   - Verifies authenticity using HMAC-SHA256 signatures (`crypto.createHmac("sha256", secret).update(orderId + "|" + paymentId)`).
-3. **Google Identity Services (`google-auth-library`)**:
-   - Authenticates users with Google OAuth 2.0 credentials, verifying tokens securely on the backend before provisioning user accounts.
-4. **Nodemailer**:
-   - Transports 6-digit verification OTPs and account recovery links using secure SMTP credentials (`EMAIL_USER`, `EMAIL_PASS`).
-5. **OpenStreetMap Nominatim API**:
-   - Powers reverse geocoding on the Leaflet address selector to automatically convert map pin coordinates into readable street, city, state, and zip code details.
-
----
-
-## 10. Project Directory Structure
+## 9. Project Directory Structure
 
 ```text
 Nest & Nail/
@@ -1205,28 +901,28 @@ Nest & Nail/
 │   │   ├── index.ts                # Application bootstrap, CORS, sockets, 15-min cron
 │   │   ├── config/
 │   │   │   └── env.ts              # Type-safe environment variable loader
-│   │   ├── domain/                 # Layer 1: Pure Enterprise Business Logic
+│   │   ├── domain/                 # Layer 1: Domain Entities & Repository Interfaces
 │   │   │   ├── entities/           # User, Worker, Service, Wallet, Payment, Review
 │   │   │   ├── errors/             # DomainError, AuthenticationError, UserBlockedError
 │   │   │   ├── gateways/           # IPaymentGateway contract
 │   │   │   └── repositories/       # Repository interfaces (IServiceRepository, etc.)
-│   │   ├── application/            # Layer 2: Application Business Logic (Use Cases)
+│   │   ├── application/            # Layer 2: Business Use Cases & Contracts
 │   │   │   ├── contracts/          # ITokenService, IEmailService, IOtpService
 │   │   │   ├── dtos/               # Request/Response Data Transfer Objects
 │   │   │   ├── interfaces/         # Use Case abstract contracts
 │   │   │   ├── mappers/            # Domain-to-DTO entity mappers
 │   │   │   └── use-cases/          # Business workflows (BookWorker, CancelService, etc.)
-│   │   ├── infrastructure/         # Layer 3: External Implementations & Frameworks
+│   │   ├── infrastructure/         # Layer 3: Adapters, Repositories & Sockets
 │   │   │   ├── adapters/           # RazorpayGateway, S3Service, Nodemailer, Bcrypt
-│   │   │   ├── database/           # Connection logic & Mongoose schemas/models
+│   │   │   ├── database/           # Mongoose schemas/models & DB connection
 │   │   │   ├── di/                 # DIContainer, controllers.di, usecases.di, infra.di
 │   │   │   ├── logger/             # Winston daily rotating logger implementation
 │   │   │   ├── repo/               # Mongoose repository implementations
 │   │   │   └── socket/             # Socket.io handlers (Chat, VideoCall, Presence)
-│   │   ├── presentation/           # Layer 4: Driving Adapters (HTTP / REST)
+│   │   ├── presentation/           # Layer 4: Express Controllers, Routes & Middleware
 │   │   │   ├── controllers/        # Express controllers (Client, Worker, Admin)
 │   │   │   ├── middlewares/        # AuthMiddleware, ErrorHandler, RequestLogger, Multer
-│   │   │   └── routes/             # Route declarations grouped by domain
+│   │   │   └── routes/             # Express routes grouped by domain module
 │   │   └── shared/                 # Enums (ServiceStatus, SlotType), responses
 │   └── logs/                       # Winston daily log rotation directory
 │
@@ -1242,14 +938,14 @@ Nest & Nail/
     │   │   ├── admin/              # Admin dashboard, verification, users, categories
     │   │   ├── client/             # Client views (home, workers, bookings, meetings)
     │   │   ├── worker/             # Worker dashboard, services, calendar, wallet
-    │   │   ├── layout.tsx          # Root HTML layout with context providers
+    │   │   ├── layout.tsx          # Root layout with context providers
     │   │   └── globals.css         # Tailwind CSS v4 styling rules
     │   ├── components/             # Reusable UI component library
     │   │   ├── containers/         # Responsive Navbars, Sidebars, Footers
     │   │   ├── modals/             # BookingModal, AddressModal, ReviewModal
     │   │   └── ui/                 # Buttons, Dialogs, Badges, Inputs
-    │   ├── lib/                    # Helper libraries and validation schemas
-    │   ├── shared/                 # Monorepo shared enums, types, and mappers
+    │   ├── lib/                    # Helper utilities and validation schemas
+    │   ├── shared/                 # Shared enums, types, and mappers
     │   ├── sources/                # Axios API clients & route definitions
     │   ├── store/                  # Zustand stores (useUserStore with persistence)
     │   └── utils/                  # Razorpay script loader, date-time formatters
@@ -1258,7 +954,7 @@ Nest & Nail/
 
 ---
 
-## 11. Installation & Local Development Setup
+## 10. Installation & Setup
 
 ### Prerequisites
 - **Node.js:** `v20.19.0` or higher
@@ -1266,9 +962,7 @@ Nest & Nail/
   ```bash
   npm install -g pnpm
   ```
-- **Database:** Local MongoDB instance or active MongoDB Atlas cluster URI
-- **AWS S3 Bucket:** Configured bucket with CORS enabled for Presigned URLs
-- **Razorpay Account:** Test Mode API Key & Secret for payment processing
+- **MongoDB:** Local MongoDB community server or active MongoDB Atlas connection URI
 
 ### Step-by-Step Installation
 
@@ -1278,138 +972,131 @@ Nest & Nail/
    cd "Nest & Nail"
    ```
 
-2. **Install Workspace Dependencies:**
-   Install dependencies across both backend and frontend in a single step using PNPM:
+2. **Install Dependencies:**
+   Install all dependencies across both backend and frontend workspaces in one step:
    ```bash
    pnpm install
    ```
 
-3. **Configure Environment Variables:**
-   Create `.env` in the `backend/` directory and `.env.local` in the `frontend/` directory following the tables in Section 12.
-
-4. **Start Development Servers:**
-   Run both the Next.js frontend and Express backend concurrently from the root directory:
-   ```bash
-   pnpm run dev
-   ```
-   *Alternatively, start them in dedicated terminals:*
-   ```bash
-   # Terminal 1: Backend API (Port 4000)
-   cd backend
-   pnpm run dev
-
-   # Terminal 2: Next.js Frontend (Port 3000)
-   cd frontend
-   pnpm run dev
-   ```
-
-5. **Access the Application:**
-   - **Frontend Web Portal:** [http://localhost:3000](http://localhost:3000)
-   - **Backend REST API:** [http://localhost:4000](http://localhost:4000)
+3. **Configure Environment Files:**
+   Create `.env.local` in `frontend/` and `.env` in `backend/` as outlined in Section 11.
 
 ---
 
-## 12. Environment Variable Configuration
+## 11. Environment Variable Configuration
 
-### Backend Environment Variables (`backend/.env`)
+### Frontend Environment Configuration (`.env.example`)
 
-| Variable | Purpose | Required | Example Placeholder |
-|:---|:---|:---:|:---|
-| `PORT` | Express server port | Yes | `4000` |
-| `NODE_ENV` | Runtime environment mode | Yes | `development` / `production` |
-| `MONGO_URI` | MongoDB connection string | Yes | `mongodb+srv://user:pass@cluster.mongodb.net/nest_nail` |
-| `FRONTEND_URL` | Client origin for CORS | Yes | `http://localhost:3000` |
-| `ACCESS_TOKEN_SECRET` | Secret key for signing access tokens | Yes | `your_access_token_secret_here` |
-| `REFRESH_TOKEN_SECRET`| Secret key for signing refresh tokens | Yes | `your_refresh_token_secret_here` |
-| `ACCESS_TOKEN_MAX_AGE`| Access token lifetime in seconds | Yes | `900` *(15 minutes)* |
-| `REFRESH_TOKEN_MAX_AGE`| Refresh token lifetime in seconds | Yes | `604800` *(7 days)* |
-| `GOOGLE_CLIENT_ID` | Google OAuth Client ID | Yes | `your-id.apps.googleusercontent.com` |
-| `GOOGLE_CLIENT_SECRET`| Google OAuth Client Secret | Yes | `your-google-oauth-secret` |
-| `EMAIL_USER` | SMTP email address for sending OTPs | Yes | `your-email@gmail.com` |
-| `EMAIL_PASS` | App password for SMTP account | Yes | `your-app-password` |
-| `AWS_REGION` | AWS S3 bucket region | Yes | `ap-south-1` |
-| `AWS_BUCKET_NAME` | AWS S3 bucket name | Yes | `nest-and-nail-storage` |
-| `AWS_ACCESS_KEY_ID` | AWS IAM Access Key ID | Yes | `AKIAIOSFODNN7EXAMPLE` |
-| `AWS_SECRET_ACCESS_KEY`| AWS IAM Secret Access Key | Yes | `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY` |
-| `RAZORPAY_KEY` | Razorpay Key ID | Yes | `rzp_test_xxxxxxxxxx` |
-| `RAZORPAY_SECRET` | Razorpay Key Secret | Yes | `your_razorpay_secret` |
-| `LOG_RETENTION_DAYS` | Daily rotated log retention limit | No | `14` |
+Create a `.env.local` file in the `frontend/` directory based on the following template:
 
-### Frontend Environment Variables (`frontend/.env.local`)
+```env
+NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:4000
 
-| Variable | Purpose | Required | Example Placeholder |
-|:---|:---|:---:|:---|
-| `NEXT_PUBLIC_FRONTEND_URL` | Base public URL of frontend | Yes | `http://localhost:3000` |
-| `NEXT_PUBLIC_API_URL` | Base URL of Express backend API | Yes | `http://localhost:4000` |
-| `NEXT_PUBLIC_ACCESS_TOKEN_SECRET`| Shared secret for edge validation | Yes | `your_access_token_secret_here` |
-| `NEXT_PUBLIC_REFRESH_TOKEN_SECRET`| Shared secret for edge validation | Yes | `your_refresh_token_secret_here` |
-| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Public Google OAuth Client ID | Yes | `your-id.apps.googleusercontent.com` |
-| `NEXT_PUBLIC_RAZORPAY_KEY` | Public Razorpay Key ID for Checkout | Yes | `rzp_test_xxxxxxxxxx` |
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
 
----
+NEXT_PUBLIC_MAX_AGE_ACCESS_TOKEN=your_access_token_expiry
+NEXT_PUBLIC_MAX_AGE_REFRESH_TOKEN=your_refresh_token_expiry
 
-## 13. Production Deployment Architecture
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+NEXT_PUBLIC_CLOUDINARY_API_KEY=your_cloudinary_api_key
 
-```mermaid
-graph TB
-    subgraph Internet["Public Internet"]
-        Users["Web Users / Mobile Browsers"]
-    end
-
-    subgraph AWSCloud["AWS Production VPC"]
-        subgraph EC2["AWS EC2 Instance (Ubuntu 22.04 LTS)"]
-            Nginx["Nginx Reverse Proxy & SSL Termination<br/>(Let's Encrypt Certbot)"]
-            
-            subgraph PM2Manager["PM2 Process Manager"]
-                FrontendApp["Next.js SSR App<br/>(Cluster Mode, Port 3000)"]
-                BackendApp["Express Clean Architecture API<br/>(Cluster Mode, Port 4000)"]
-            end
-        end
-
-        subgraph ManagedCloud["Managed Cloud Services"]
-            MongoAtlas[("MongoDB Atlas<br/>Multi-AZ Replica Set")]
-            S3Storage["AWS S3 Bucket<br/>(Private Assets with Presigned URLs)"]
-        end
-    end
-
-    Users -->|HTTPS / WSS (Port 443)| Nginx
-    Nginx -->|Proxy Pass /| FrontendApp
-    Nginx -->|Proxy Pass /api| BackendApp
-    Nginx -->|Upgrade WebSocket /socket.io| BackendApp
-
-    BackendApp <--> MongoAtlas
-    BackendApp <--> S3Storage
+NEXT_PUBLIC_RAZORPAY_KEY=your_razorpay_public_key
 ```
 
-### Production Build & Launch Workflow
+### Backend Environment Configuration (`.env.example`)
 
-1. **Backend Build & Production Run:**
-   ```bash
-   cd backend
-   pnpm run build     # Compiles TypeScript to dist/
-   pnpm run start     # Starts node dist/index.js
-   ```
+Create a `.env` file in the `backend/` directory based on the following template:
 
-2. **Frontend Build & Production Run:**
-   ```bash
-   cd frontend
-   pnpm run build     # Generates optimized Next.js production bundle
-   pnpm run start     # Starts Next.js production server
-   ```
+```env
+# Server Configuration
+PORT=4000
+NODE_ENV=development
+FRONTEND_URL=http://localhost:3000
 
-3. **Process Supervision (PM2 Example):**
-   ```bash
-   pm2 start "node dist/index.js" --name "nest-backend" --cwd "./backend"
-   pm2 start "pnpm run start" --name "nest-frontend" --cwd "./frontend"
-   pm2 save
-   ```
+# Database
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/nest_nail
+
+# JWT Secrets & Expiry
+ACCESS_TOKEN_SECRET=your_access_token_secret
+REFRESH_TOKEN_SECRET=your_refresh_token_secret
+ACCESS_TOKEN_MAX_AGE=900
+REFRESH_TOKEN_MAX_AGE=604800
+
+# Google OAuth (Backend Verification)
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# SMTP Email Service (Nodemailer OTP delivery)
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_email_app_password
+
+# AWS S3 Storage (Direct Presigned URLs)
+AWS_REGION=ap-south-1
+AWS_BUCKET_NAME=your_bucket_name
+AWS_ACCESS_KEY_ID=your_aws_access_key_id
+AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+
+# Razorpay Payment Gateway
+RAZORPAY_KEY=your_razorpay_key_id
+RAZORPAY_SECRET=your_razorpay_key_secret
+
+# Logging
+LOG_RETENTION_DAYS=14
+```
+
+### Configuration & Security Notice
+
+> [!IMPORTANT]
+> **Environment Configuration Required:** You must configure your own valid environment variables in both `frontend/.env.local` and `backend/.env` before running the application.
+
+> [!CAUTION]
+> **Credential Security:** Never expose backend secrets—such as `GOOGLE_CLIENT_SECRET`, `RAZORPAY_SECRET`, `ACCESS_TOKEN_SECRET`, `REFRESH_TOKEN_SECRET`, or `AWS_SECRET_ACCESS_KEY`—via `NEXT_PUBLIC_` variables or in client-side code. All variables prefixed with `NEXT_PUBLIC_` are bundled into client-side JavaScript.
 
 ---
 
-## 14. Error Handling, Logging & Reliability
+## 12. Running the Application
+
+### Development Mode
+
+Run both the frontend and backend servers concurrently from the monorepo root:
+
+```bash
+pnpm run dev
+```
+
+*Or run them in separate terminals:*
+
+```bash
+# Terminal 1: Express Backend (Port 4000)
+cd backend
+pnpm run dev
+
+# Terminal 2: Next.js Frontend (Port 3000)
+cd frontend
+pnpm run dev
+```
+
+### Production Build & Execution
+
+```bash
+# 1. Build and start the backend
+cd backend
+pnpm run build     # Compiles TypeScript to dist/
+pnpm run start     # Executes node dist/index.js
+
+# 2. Build and start the frontend
+cd ../frontend
+pnpm run build     # Generates optimized Next.js production bundle
+pnpm run start     # Starts Next.js production server
+```
+
+---
+
+## 13. Error Handling, Logging & Reliability
 
 ### Centralized Exception Handling
-The platform implements a unified error-handling pipeline that maps domain exceptions directly to structured HTTP status codes:
+The backend implements a unified error-handling pipeline that maps domain exceptions directly to structured HTTP status codes:
 
 ```mermaid
 flowchart LR
@@ -1433,7 +1120,7 @@ The backend uses Winston with `winston-daily-rotate-file`:
 
 ---
 
-## 15. Roadmap & Future Improvements
+## 14. Roadmap & Future Improvements
 
 ### Existing Capabilities
 - [x] Multi-factor authentication (Email/Password, 6-digit OTP, Google SSO).
@@ -1458,7 +1145,7 @@ The backend uses Winston with `winston-daily-rotate-file`:
 
 ---
 
-## 16. Contributing & License
+## 15. Contributing & License
 
 ### Contributing
 Contributions to Nest & Nail are welcome. Please adhere to the following workflow:
