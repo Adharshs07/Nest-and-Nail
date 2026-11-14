@@ -362,7 +362,7 @@ sequenceDiagram
     participant SvcRepo as ServiceRepository
     participant DB as MongoDB Atlas
 
-    Client->>UI: Selects Dates & Slots; Clicks "Confirm"
+    Client->>UI: Selects Dates and Slots and Clicks Confirm
     UI->>SA: bookWorkerAction(bookingPayload)
     SA->>API: POST /api/client/services/book
     API->>Route: HTTP POST with Bearer Cookie
@@ -383,7 +383,7 @@ sequenceDiagram
     Ctrl-->>API: 201 Created { success: true, payload: service }
     API-->>SA: Response mapped
     SA-->>UI: Updates Booking Status
-    UI-->>Client: Displays Booking Confirmation & Payment Prompt
+    UI-->>Client: Displays Booking Confirmation and Payment Prompt
 ```
 
 ---
